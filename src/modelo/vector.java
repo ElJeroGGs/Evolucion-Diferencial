@@ -33,7 +33,7 @@ public class vector {
 
     public double valor_funcion(){
 
-        return Math.round((Math.sqrt(x) + (y / z)) * 100.0) / 100.0;
+        return Math.round((Math.pow(x,2) + (y / z)) * 100.0) / 100.0;
     }
 
 }

@@ -206,10 +206,31 @@ public class control_principal extends Thread {
             interfaz.turnStartButtonOn();
             this.set_generaciones(interfaz.getGenerations());
         } else if (accion.equals("start")) {
+            this.set_generaciones(interfaz.getGenerations());
             interfaz.turnGenerateButtonOff();
             interfaz.turnStartButtonOff();
+            interfaz.turnGenerateBoxOff();
 
-            interfaz.pintaVectoresMax(this.vectores_max, evolucion1.getGeneracion());
+            for (int i = 0; i < this.generaciones; i++) {
+
+                evolucion1.hace(i, vectores_max);
+                evolucion2.hace(i, vectores_max);
+                evolucion3.hace(i, vectores_max);
+                evolucion4.hace(i, vectores_max);
+
+                pintaVectoresMax(vectores_max, i+1);
+
+                evolucion5.hace(i, vectores_min);
+                evolucion6.hace(i, vectores_min);
+                evolucion7.hace(i, vectores_min);
+                evolucion8.hace(i, vectores_min);
+
+                pintaVectoresMin(vectores_min, i+1);
+            }
+
+            interfaz.scroll_cero();
+
+           /*  interfaz.pintaVectoresMax(this.vectores_max, evolucion1.getGeneracion());
 
             evolucion1.start();
             evolucion2.start();
@@ -223,55 +244,12 @@ public class control_principal extends Thread {
             evolucion7.start();
             evolucion8.start();
 
-            this.start();
+            this.start();  */
 
         }
 
-        if (accion.equals("start2")) {
-
-            evolucion1 = new evolucion_max(1);
-            evolucion2 = new evolucion_max(2);
-            evolucion3 = new evolucion_max(3);
-            evolucion4 = new evolucion_max(4);
-
-            evolucion1.setPoblacion(vectores_max);
-            evolucion2.setPoblacion(vectores_max);
-            evolucion3.setPoblacion(vectores_max);
-            evolucion4.setPoblacion(vectores_max);
-
-            evolucion1.setCtrl(this);
-            evolucion2.setCtrl(this);
-            evolucion3.setCtrl(this);
-            evolucion4.setCtrl(this);
-
-            try {
-                evolucion1.start();
-                evolucion2.start();
-                evolucion3.start();
-                evolucion4.start();
-            } catch (Exception e) {
-                System.out.println("Error al iniciar los hilos");
-            }
-
-        }
-
-        if (accion.equals("start3")) {
-            evolucion5 = new evolucion_min(1);
-            evolucion6 = new evolucion_min(2);
-            evolucion7 = new evolucion_min(3);
-            evolucion8 = new evolucion_min(4);
-
-            evolucion5.setCtrl(this);
-            evolucion6.setCtrl(this);
-            evolucion7.setCtrl(this);
-            evolucion8.setCtrl(this);
-
-            evolucion5.setPoblacion(vectores_min);
-            evolucion6.setPoblacion(vectores_min);
-            evolucion7.setPoblacion(vectores_min);
-            evolucion8.setPoblacion(vectores_min);
-
-        }
+        
+       
     }
 
     public void pintaVectoresMax(vector[] vectores_max, int generacion) {

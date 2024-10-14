@@ -23,16 +23,14 @@ public class evolucion_max  extends evolucion{
         controlador.pintaMarcoMax(texto);
     }
 
-    public void run() {
-                while (!this.finished && generacion < controlador.get_generaciones()) {
-                    try {
-                        // Esperar hasta que el controlador no esté ocupado
-                        controlador.waitForOcupado();
-                        controlador.setOcupado(true);
+    public void hace(int generacion, vector[] vectores) {
+
+        this.generacion = generacion;
+              
             
                         // Calcular el vector w
                         vector w = formulaW();
-                        Thread.sleep(100);
+                        
             
                         // Pintar el marco con el texto actual
                         controlador.pintaMarcoMax(this.getTexto());
@@ -46,16 +44,12 @@ public class evolucion_max  extends evolucion{
                         // Actualizar los vectores máximos en el controlador
                         controlador.setVectores_max(this.poblacion);
             
-                        // Marcar como terminado
-                        this.finished = true;
             
                         // Cambiar a la siguiente generación
                         //controlador.cambiar_generacion("max");
             
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                    
+                
             }
 
 }

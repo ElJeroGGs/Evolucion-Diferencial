@@ -25,6 +25,8 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
     JButton startButton;
     JButton generateButton;
     JComboBox<Integer> generationsComboBox;
+    JScrollPane maxScrollPane;
+    JScrollPane minScrollPane;
 
     public InterfazPrincipal() {
         super("Evolucion diferencial");
@@ -56,6 +58,7 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
 
         populationTextField = new JTextField();
         populationTextField.setFont(font);
+        populationTextField.setEditable(false);
         populationTextField.setBounds(50, 240, 750, 50);
         this.add(populationTextField);
 
@@ -65,6 +68,7 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
         generateButton.setFont(font);
         generateButton.setBounds(275, 300, 350, 50);
         this.add(generateButton);
+        
 
         startButton = new JButton("Comenzar");
         startButton.addActionListener(this);
@@ -86,7 +90,8 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
        
         maxTextField = new JTextPane();
         maxTextField.setFont(fonte);
-        JScrollPane maxScrollPane = new JScrollPane(maxTextField);
+        maxTextField.setEditable(false);
+        maxScrollPane = new JScrollPane(maxTextField);
         maxScrollPane.setBounds(30, 460, 400, 450);
         this.add(maxScrollPane);
         //this.add(maxTextField);
@@ -102,9 +107,10 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
         minTextField = new JTextPane();
         minTextField.setFont(fonte);
         minTextField.setBounds(450, 460, 400, 450);
+        minTextField.setEditable(false);
         
 
-        JScrollPane minScrollPane = new JScrollPane(minTextField);
+        minScrollPane = new JScrollPane(minTextField);
         minScrollPane.setBounds(450, 460, 400, 450);
         this.add(minScrollPane);
 
@@ -112,6 +118,7 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+
     }
 
     @Override
@@ -167,6 +174,10 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
         String text = maxTextField.getText();
         text += texto + "\n";
         this.maxTextField.setText(text);
+
+        
+       
+        
        
     }
 
@@ -174,6 +185,7 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
         String text = minTextField.getText();
         text += texto + "\n";
         this.minTextField.setText(text);
+
        
     }
 
@@ -187,6 +199,7 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
             + "\n";
         }
         this.pintaMarcoMax(texto);
+
     }
 
     public void pintaVectoresMin(vector[] vectores_min, int generacion) {
@@ -199,5 +212,16 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
                 + "\n";
             }
             this.pintaMarcoMin(texto);
+    }
+
+    public void turnGenerateBoxOff() {
+        generationsComboBox.setEnabled(false);
+    }
+
+    public void scroll_cero() {
+        
+        maxScrollPane.getVerticalScrollBar().setValue(maxScrollPane.getVerticalScrollBar().getMaximum());
+        
+        minScrollPane.getVerticalScrollBar().setValue(minScrollPane.getVerticalScrollBar().getMaximum());
     }
 }
