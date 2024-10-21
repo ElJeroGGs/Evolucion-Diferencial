@@ -58,9 +58,9 @@ public abstract class evolucion extends Thread{
         //Genera de manera alatoria 4 vectores
         for (int i = 0; i < 4; i++){
 
-            double x = Math.round((Math.random() * (Constantes.limite_superior - Constantes.limite_inferior) + Constantes.limite_inferior) * 100.0) / 100.0;
-            double y = Math.round((Math.random() * (Constantes.limite_superior - Constantes.limite_inferior) + Constantes.limite_inferior) * 100.0) / 100.0;
-            double z = Math.round((Math.random() * (Constantes.limite_superior - Constantes.limite_inferior) + Constantes.limite_inferior) * 100.0) / 100.0;
+            double x = Math.random() * (Constantes.limite_superior - Constantes.limite_inferior) + Constantes.limite_inferior ;
+            double y = Math.random() * (Constantes.limite_superior - Constantes.limite_inferior) + Constantes.limite_inferior ;
+            double z = Math.random() * (Constantes.limite_superior - Constantes.limite_inferior) + Constantes.limite_inferior;
             poblacion[i] = new vector(x, y, z, i+1);
          
         }
@@ -137,17 +137,17 @@ public abstract class evolucion extends Thread{
 
         //Calculamos el vector w
 
-        double wx = Math.round((this.poblacion[id1].get_x() + Constantes.M * (this.poblacion[id2].get_x() - this.poblacion[id3].get_x())) * 100.0) / 100.0;
-        double wy = Math.round((this.poblacion[id1].get_y() + Constantes.M * (this.poblacion[id2].get_y() - this.poblacion[id3].get_y())) * 100.0) / 100.0;
-        double wz = Math.round((this.poblacion[id1].get_z() + Constantes.M * (this.poblacion[id2].get_z() - this.poblacion[id3].get_z())) * 100.0) / 100.0;
+        double wx = this.poblacion[id1].get_x() + Constantes.M * (this.poblacion[id2].get_x() - this.poblacion[id3].get_x()) ;
+        double wy = this.poblacion[id1].get_y() + Constantes.M * (this.poblacion[id2].get_y() - this.poblacion[id3].get_y()) ;
+        double wz = this.poblacion[id1].get_z() + Constantes.M * (this.poblacion[id2].get_z() - this.poblacion[id3].get_z());
         //Pintamos el  calculo de las componentes del vector w
 
-        texto = "Objetivo V"+this.id +"\n";
-        texto += "W = V" + id1 + " + " + Constantes.M + " * (V" + id2 + " - V" + id3 + ")\n";
-        texto += "WX = "+ this.poblacion[id1].get_x() + " + " + Constantes.M + " * (" + this.poblacion[id2].get_x() + " - " + this.poblacion[id3].get_x() + ") = " +wx+"\n";
-        texto += "WY = "+ this.poblacion[id1].get_y() + " + " + Constantes.M + " * (" + this.poblacion[id2].get_y() + " - " + this.poblacion[id3].get_y() + ") = "+wy+"\n";
-        texto += "WZ = "+ this.poblacion[id1].get_z() + " + " + Constantes.M + " * (" + this.poblacion[id2].get_z() + " - " + this.poblacion[id3].get_z() + ") = " +wz+"\n";
-        texto += "W = [" + wx + ", " + wy + ", " + wz + "]\n";
+        texto = "Objetivo V" + this.id + "\n";
+        texto += String.format("W = V%d + %.2f * (V%d - V%d)\n", id1, Constantes.M, id2, id3);
+        texto += String.format("WX = %.2f + %.2f * (%.2f - %.2f) = %.2f\n", this.poblacion[id1].get_x(), Constantes.M, this.poblacion[id2].get_x(), this.poblacion[id3].get_x(), wx);
+        texto += String.format("WY = %.2f + %.2f * (%.2f - %.2f) = %.2f\n", this.poblacion[id1].get_y(), Constantes.M, this.poblacion[id2].get_y(), this.poblacion[id3].get_y(), wy);
+        texto += String.format("WZ = %.2f + %.2f * (%.2f - %.2f) = %.2f\n", this.poblacion[id1].get_z(), Constantes.M, this.poblacion[id2].get_z(), this.poblacion[id3].get_z(), wz);
+        texto += String.format("W = [%.2f, %.2f, %.2f]\n", wx, wy, wz);
 
         w = new vector(wx, wy, wz, this.id); // Initialize w with appropriate values
         return w;
@@ -162,17 +162,6 @@ public abstract class evolucion extends Thread{
     }
 
     public abstract void reemplazar(vector w);
-
-    
-
-
-
-
-
-
-
-
-
 
 
 }

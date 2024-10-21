@@ -29,11 +29,11 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
     JScrollPane minScrollPane;
 
     public InterfazPrincipal() {
-        super("Evolucion diferencial");
+        super("Evolución Diferencial");
         this.setLayout(null);
         Font font = new Font("Arial", Font.BOLD, 18);
 
-        JLabel titleLabel = new JLabel("Evolucion Diferencial", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Evolución Diferencial", SwingConstants.CENTER);
         titleLabel.setFont(font);
         titleLabel.setBounds(0, 0, 900, 50);
         this.add(titleLabel);
@@ -49,7 +49,7 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
         this.add(generationsLabel);
 
         generationsComboBox = new JComboBox<>();
-        for (int i = 1; i <= 15; i++) {
+        for (int i = 1; i <= 100; i++) {
             generationsComboBox.addItem(i);
         }
         generationsComboBox.setFont(font);
@@ -81,7 +81,7 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
         Font fonte = new Font("Arial", Font.PLAIN, 20);
 
         // Etiqueta de Maximización
-        JLabel maxLabel = new JLabel("Maximización");
+        JLabel maxLabel = new JLabel("Algoritmo");
         maxLabel.setFont(fonte);
         maxLabel.setBounds(100, 420, 350, 30);
         this.add(maxLabel);
@@ -106,7 +106,7 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
         // Cuadro de texto de Minimización
         minTextField = new JTextPane();
         minTextField.setFont(fonte);
-        minTextField.setBounds(450, 460, 400, 450);
+        minTextField.setBounds(450, 460, 450, 450);
         minTextField.setEditable(false);
         
 
@@ -156,21 +156,23 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
     public void setControlador(control_principal control_principal) {
 
         this.ctrl = control_principal;
-    }
+        }
 
-    public void mostrar_vectores(vector[] poblacion) {
+        public void mostrar_vectores(vector[] poblacion) {
 
         String texto = "";
         for (int i = 0; i < poblacion.length; i++) {
-            texto += "V" + (i+1) + ": [" + poblacion[i].get_x()+","
-            + poblacion[i].get_y() + ","
-            + poblacion[i].get_z() + "] "
-            ;
+            texto += String.format("V%d: [%.2f, %.2f, %.2f] ", 
+            (i + 1), 
+            poblacion[i].get_x(), 
+            poblacion[i].get_y(), 
+            poblacion[i].get_z()
+            );
         }
         this.populationTextField.setText(texto);
-    }
+        }
 
-    public void pintaMarcoMax(String texto) {
+        public void pintaMarcoMax(String texto) {
         String text = maxTextField.getText();
         text += texto + "\n";
         this.maxTextField.setText(text);
@@ -186,32 +188,37 @@ public class InterfazPrincipal extends JFrame implements ActionListener{
         text += texto + "\n";
         this.minTextField.setText(text);
 
-       
-    }
+        }
 
-    public void pintaVectoresMax(vector[] vectores_max, int generacion) {
+        public void pintaVectoresMax(vector[] vectores_max, int generacion) {
 
         String texto = "Generación " + generacion + "\n";
         for (int i = 0; i < vectores_max.length; i++) {
-            texto += "V" + (i+1) + ": [" + vectores_max[i].get_x()+","
-            + vectores_max[i].get_y() + ","
-            + vectores_max[i].get_z() + "] "
-            + "\n";
+            texto += String.format("V%d: [%.2f, %.2f, %.2f] ", 
+            (i + 1), 
+            vectores_max[i].get_x(), 
+            vectores_max[i].get_y(), 
+            vectores_max[i].get_z()
+            );
+            texto += "\n";
         }
         this.pintaMarcoMax(texto);
 
-    }
+        }
 
-    public void pintaVectoresMin(vector[] vectores_min, int generacion) {
+        public void pintaVectoresMin(vector[] vectores_min, int generacion) {
+        String texto = "Generación " + generacion + "\n";
+        for (int i = 0; i < vectores_min.length; i++) {
+            texto += String.format("V%d: [%.2f, %.2f, %.2f] ", 
+            (i + 1), 
+            vectores_min[i].get_x(), 
+            vectores_min[i].get_y(), 
+            vectores_min[i].get_z()
+            );
+            texto += "\n";
+        }
+        this.pintaMarcoMin(texto);
             
-            String texto = "Generación " + generacion + "\n";
-            for (int i = 0; i < vectores_min.length; i++) {
-                texto += "V" + (i+1) + ": [" + vectores_min[i].get_x()+","
-                + vectores_min[i].get_y() + ","
-                + vectores_min[i].get_z() + "] "
-                + "\n";
-            }
-            this.pintaMarcoMin(texto);
     }
 
     public void turnGenerateBoxOff() {

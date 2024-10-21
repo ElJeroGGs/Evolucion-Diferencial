@@ -7,10 +7,14 @@ public class evolucion_min extends evolucion{
         this.id = i;
     }
 
-    public  synchronized void reemplazar(vector w) {
-        this.texto = "Peso de W=" + w.valor_funcion()+"\n";
-        this.texto += "Peso de V" + (this.id) + "=" + this.poblacion[this.id-1].valor_funcion()+"\n";
-        if(w.valor_funcion() < this.poblacion[this.id-1].valor_funcion()){
+    public double sesgo(double valornuevo,double valoranterior){
+        return valornuevo / valoranterior;
+        }
+
+        public synchronized void reemplazar(vector w) {
+        this.texto = "Peso de W=" + String.format("%.2f", w.valor_funcion()) + "\n";
+        this.texto += "Peso de V" + (this.id) + "=" + String.format("%.2f", this.poblacion[this.id-1].valor_funcion()) + "\n";
+        if(w.valor_funcion() < this.poblacion[this.id-1].valor_funcion() && sesgo(w.valor_funcion(), this.poblacion[this.id-1].valor_funcion()) < Constantes.Sesgo){
             
             this.texto += "W es mejor que V" + (this.id) + " se reemplaza"+ "\n";
             this.poblacion[this.id-1] = w;
